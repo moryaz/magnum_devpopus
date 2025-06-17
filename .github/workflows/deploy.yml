@@ -20,10 +20,17 @@ jobs:
       - name: Build bot image
         run: docker build -t weather_bot ./bot
 
-      - name: Build and Start All Services
+      - name: Set up Docker Compose
         run: |
           docker-compose build
-          docker-compose up -d
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
 
+      - name: Start all services
+        run: |
+          TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
+          WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }} \
+          docker-compose up -d
       - name: Check Status
         run: docker ps

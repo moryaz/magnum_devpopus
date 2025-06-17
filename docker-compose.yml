@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  nginx: 
+   image: nginx:latest
+   container_name: nginxtest
+   volumes:
+     - ./nginx.conf:/etc/nginx/nginx.conf:ro
+     - ./certbot/conf:/etc/letsencrypt/	
+     - ./certbot/www:/var/www/certbot/
+   ports:
+     - "80:80"
+     - "443:443"
+	
+  certbot:
+   image: certbot
+   container_name: certbottest
+   volumes:
+     - ./certbot/www:/var/www/certbot/ 
+     - ./certbot/conf:/etc/letsencrypt/
+   command: >
+      sh -c "
+      echo '* * 25 * * certbot renew --nginx --noninteractive --post-hook \"nginx -s reload\"' > /etc/crontabs/root &&
+      crond -f 
+      "

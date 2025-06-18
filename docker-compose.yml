@@ -1,6 +1,20 @@
 version: '3.8'
 
 services:
+
+  glusterfs:
+    image: gluster/gluster-centos:latest
+    container_name: glusterfs
+    volumes:
+      - gluster-data:/var/lib/glusterd
+      - gluster-config:/etc/glusterfs
+      - gluster-log:/var/log/glusterfs
+    ports:
+      - "24007:24007"
+      - "24008:24008"
+      - "49152:49152" 
+    restart: unless-stopped
+
   moodle:
     image: bitnami/moodle:4.4.0
     ports:

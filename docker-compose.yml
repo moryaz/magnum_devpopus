@@ -12,8 +12,9 @@ services:
     ports:
       - "24007:24007"
       - "24008:24008"
-      - "49152:49152" 
+      - "49152:49152"
     restart: unless-stopped
+
 
   moodle:
     image: bitnami/moodle:4.4.0

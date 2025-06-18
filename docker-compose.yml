@@ -75,3 +75,7 @@ services:
 volumes:
   moodledata:
   grafana-data:
+  gluster-data:
+  gluster-config:
+  gluster-log:
+ 

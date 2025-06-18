@@ -25,5 +25,6 @@ jobs:
           TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
           WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }} \
           docker-compose up -d
+          
       - name: Check Status
-        run: docker ps
+        run: docker compose ps

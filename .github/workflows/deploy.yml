@@ -18,13 +18,13 @@ jobs:
         run: git clone https://github.com/moryaz/tgbot ./bot
 
       - name: Build bot image
-        run: docker build -t weather_bot ./bot
+        run: docker compose build -t weather_bot ./bot
 
       - name: Start all services
         run: |
           TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }} \
           WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }} \
-          docker-compose up -d
+          docker compose up -d
           
       - name: Check Status
         run: docker compose ps
